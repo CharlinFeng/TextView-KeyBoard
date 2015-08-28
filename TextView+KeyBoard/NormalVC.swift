@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NormalVC2: UIViewController {
+class NormalVC: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     
@@ -16,7 +16,7 @@ class NormalVC2: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10, msg: nil)
+        TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
 
     }
     

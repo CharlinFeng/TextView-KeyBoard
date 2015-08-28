@@ -17,55 +17,32 @@ class TextViewKeyBoardVC: UIViewController{
     
     weak private var pvc: UIViewController!
     weak private var textView: UITextView!
+    lazy private var av = {AccessoryView.instance()}()
     private var offsetY: CGFloat!
     private var willShow = false
+    private var scrollView: UIScrollView!
+    
+    deinit{NSNotificationCenter.defaultCenter().removeObserver(self)}
 }
-
 
 
 extension TextViewKeyBoardVC: UITextViewDelegate{
     
     var ScreenH: CGFloat {return UIScreen.mainScreen().bounds.size.height}
     
-    
     /**  直接躲避键盘  */
-    func avoid(inVC vc: UIViewController, scrollView: UIScrollView!, textView: UITextView, offsetY: CGFloat, msg: String!){
+    func avoid(inVC vc: UIViewController, scrollView: UIScrollView!, textView: UITextView, offsetY: CGFloat){
         
+        if !textView .isDescendantOfView(vc.view) {return}
         vc.addChildViewController(self)
         pvc = vc
         self.textView = textView
         self.offsetY = offsetY
+        self.scrollView = scrollView
         textView.delegate = self
-        //安装键盘工具条
-        if self.inputAccessoryView == nil {
-        
-            let av = AccessoryView.instance()
-            av.msgLabel.text = msg ?? "请输入您想要输入的内容"
-            textView.inputAccessoryView = av
-
-            av.doneBtnActionClosure = {textView.endEditing(true)}
-        }
-        
-        
+        if self.inputAccessoryView == nil {textView.inputAccessoryView = av;av.doneBtnActionClosure = {textView.endEditing(true)}}
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        
-
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardWillHideNotification, object: nil)
-        
-        
-        if scrollView == nil { //无scrollView的情况
-            
-            
-            
-            
-            
-        }else{
-            
-        }
-        
-        
-        
     }
     
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
@@ -83,7 +60,6 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
         textViewDidChangeClosure?(textView: textView)
     }
     
-
     func keyboardWillShow(noti: NSNotification){
         
         if !willShow {return}
@@ -94,18 +70,26 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
         let maxH = ScreenH - kbH
         let moveUP = CGRectGetMaxY(textViewRect) - maxH
         
-        if moveUP > 0 { //需要上移
-            
-            UIView.animateWithDuration(0.25, animations: {[unowned self] () -> Void in
-                
-                /**  别问为什么是7，，经验，，，，  */
-                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
-                
-                self.pvc.view.transform = CGAffineTransformMakeTranslation(0, -(moveUP+self.offsetY))
-                
-            })
-            
+        var transfromH: CGFloat = 0
+        var scrollEatContenth: CGFloat = 0
+        
+        if moveUP > 0 {
+            if scrollView == nil {transfromH = -(moveUP+self.offsetY)}
+            else {
+                let scrollableH = scrollView.contentSize.height - scrollView.bounds.size.height
+                let maxOffsetY = scrollableH
+                let needOffsetY = moveUP + scrollView.contentOffset.y
+                if needOffsetY <= maxOffsetY {scrollEatContenth = needOffsetY + self.offsetY}
+                else{let extraH = needOffsetY - maxOffsetY;scrollEatContenth = maxOffsetY;transfromH =  -(extraH + self.offsetY)}
+            }
         }
+        
+        UIView.animateWithDuration(0.25, animations: {[unowned self] () -> Void in
+            /**  别问为什么是7，，经验，，，，  */
+            UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
+            if self.scrollView != nil {self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, scrollEatContenth)}
+            self.pvc.view.transform = CGAffineTransformMakeTranslation(0, transfromH)
+        })
     }
     
     /**  开始编辑  */
@@ -120,11 +104,3 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
         })
     }
 }
-
-
-
-
-
-
-
-
