@@ -54,3 +54,17 @@ TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offs
         
         }
 
+
+
+<br/><br/><br/>
+我的事业
+===============
+西成的事业，渺小而艰难的求生存。前期我们专做全国的移动app外包。如果您能在信息上援助我们，我们万分感谢您的帮助！<br/>
+西成：[http://ios-android.cn](http://ios-android.cn) <br/>
+我的个人微博：[http://weibo.com/charlin2015/](http://weibo.com/charlin2015/)<br/>
+<br/><br/>
+三群： 474377358<br/>
+四群： 347446259<br/>
+西部省市朋友加群号： 473185026（实名）<br/>
+swift群： 467237044<br/>
+
