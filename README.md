@@ -26,7 +26,8 @@
 ===============
 <br/>
 ####您的UITextView 无需继承任何基类！一句代码即可集成：<br/>
-TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
+
+    TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
 
 ###细节说明：<br/>
 1. scrollView已经处理，请根据您的情况传入。<br/>
