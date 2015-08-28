@@ -25,7 +25,7 @@
 一句代码集成
 ===============
 <br/>
-####您的UITextView 无需继承任何基类！一句代码即可集成：<br/>
+####拖拽TextView+KeyBoard文件夹到您的项目，UITextView 无需继承任何基类！一句代码即可集成：<br/>
 
     TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
 
