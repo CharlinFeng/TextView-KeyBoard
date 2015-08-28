@@ -18,6 +18,25 @@ class NormalVC: UIViewController {
         
         TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
 
+        let tkb = TextViewKeyBoardVC()
+        tkb.msg = "请输入意见"
+        
+        /** 开始编辑 */
+        tkb.textViewWillBeginEditlosure = {textView in
+            
+        }
+        
+        /** 文字改变 */
+        tkb.textViewDidChangeClosure = {textView in
+            
+        }
+        
+        /** 结束编辑 */
+        tkb.textViewDidEndEditClosure = {textView in
+        
+        }
+    
+
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {

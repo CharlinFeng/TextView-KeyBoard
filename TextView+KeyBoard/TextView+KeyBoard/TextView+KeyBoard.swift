@@ -14,6 +14,7 @@ class TextViewKeyBoardVC: UIViewController{
     var textViewWillBeginEditlosure: ((textView: UITextView)->Void)!
     var textViewDidEndEditClosure: ((textView: UITextView)->Void)!
     var textViewDidChangeClosure: ((textView: UITextView)->Void)!
+    var msg: String!{didSet{av.msgLabel.text=msg}}
     
     weak private var pvc: UIViewController!
     weak private var textView: UITextView!
