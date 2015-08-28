@@ -25,11 +25,11 @@
 一句代码集成
 ===============
 <br/>
-####拖拽TextView+KeyBoard文件夹到您的项目，UITextView 无需继承任何基类！一句代码即可集成：<br/>
+####拖拽TextView+KeyBoard文件夹到您的项目，UITextView 无需继承任何基类！一句代码集成：<br/>
 
     TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
 
-###细节说明：<br/>
+###更多配置：<br/>
 1. scrollView已经处理，请根据您的情况传入。<br/>
 2. offsetY是框架的特色，有的时候您的UITextView下方可能有提示文字或者事件按钮，你可以预留更多的空间。<br/>
 3. 键盘工具条已经封装，想要修改上面的文字如下：
