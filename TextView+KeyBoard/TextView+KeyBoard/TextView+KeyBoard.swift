@@ -66,7 +66,7 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
         if !willShow {return}
         
         let info = noti.userInfo as! [String: AnyObject]
-        let kbH = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue().size.height
+        let kbH = info[UIKeyboardFrameEndUserInfoKey]!.CGRectValue.size.height
         let textViewRect = textView.convertRect(textView.bounds, toView: nil)
         let maxH = ScreenH - kbH
         let moveUP = CGRectGetMaxY(textViewRect) - maxH
