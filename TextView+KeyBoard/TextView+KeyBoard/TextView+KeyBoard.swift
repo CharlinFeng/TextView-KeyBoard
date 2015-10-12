@@ -74,15 +74,13 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
         var transfromH: CGFloat = 0
         var scrollEatContenth: CGFloat = 0
         
-        if moveUP > 0 {
-            if scrollView == nil {transfromH = -(moveUP+self.offsetY)}
-            else {
-                let scrollableH = scrollView.contentSize.height - scrollView.bounds.size.height
-                let maxOffsetY = scrollableH
-                let needOffsetY = moveUP + scrollView.contentOffset.y
-                if needOffsetY <= maxOffsetY {scrollEatContenth = needOffsetY + self.offsetY}
-                else{let extraH = needOffsetY - maxOffsetY;scrollEatContenth = maxOffsetY;transfromH =  -(extraH + self.offsetY)}
-            }
+        if scrollView == nil {transfromH = -(moveUP+self.offsetY)}
+        else {
+            let scrollableH = scrollView.contentSize.height - scrollView.bounds.size.height
+            let maxOffsetY = scrollableH
+            let needOffsetY = moveUP + scrollView.contentOffset.y
+            if needOffsetY <= maxOffsetY {scrollEatContenth = needOffsetY + self.offsetY}
+            else{let extraH = needOffsetY - maxOffsetY;scrollEatContenth = maxOffsetY;transfromH =  -(extraH + self.offsetY)}
         }
         
         UIView.animateWithDuration(0.25, animations: {[unowned self] () -> Void in
