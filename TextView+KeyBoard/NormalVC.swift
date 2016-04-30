@@ -12,11 +12,12 @@ class NormalVC: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     
+    var kb = TextViewKeyBoardVC()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        TextViewKeyBoardVC().avoid(inVC: self, scrollView: nil, textView: textView, offsetY: 10)
+        kb.avoid(inView: self.view, scrollView: nil, textView: textView, offsetY: 10)
 
         let tkb = TextViewKeyBoardVC()
         tkb.msg = "请输入意见"

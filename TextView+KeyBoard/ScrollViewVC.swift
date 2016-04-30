@@ -15,12 +15,13 @@ class ScrollViewVC: UIViewController {
     @IBOutlet weak var textView1: UITextView!
     @IBOutlet weak var textView2: UITextView!
     
+    let kb = TextViewKeyBoardVC()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        TextViewKeyBoardVC().avoid(inVC: self, scrollView: scrollView, textView: textView1, offsetY: 20)
-        TextViewKeyBoardVC().avoid(inVC: self, scrollView: scrollView, textView: textView2, offsetY: 40)
+        kb.avoid(inView: self.view, scrollView: scrollView, textView: textView1, offsetY: 20)
+
         
     }
 

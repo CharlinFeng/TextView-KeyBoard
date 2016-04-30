@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewKeyBoardVC: UIViewController{
+class TextViewKeyBoardVC: NSObject{
     
     /**  API  */
     var textViewWillBeginEditlosure: ((textView: UITextView)->Void)!
@@ -16,7 +16,7 @@ class TextViewKeyBoardVC: UIViewController{
     var textViewDidChangeClosure: ((textView: UITextView)->Void)!
     var msg: String!{didSet{av.msgLabel.text=msg}}
     
-    weak private var pvc: UIViewController!
+    weak private var pv: UIView!
     weak private var textView: UITextView!
     lazy private var av = {AccessoryView.instance()}()
     private var offsetY: CGFloat!
@@ -32,16 +32,16 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
     var ScreenH: CGFloat {return UIScreen.mainScreen().bounds.size.height}
     
     /**  直接躲避键盘  */
-    func avoid(inVC vc: UIViewController, scrollView: UIScrollView!, textView: UITextView, offsetY: CGFloat){
+    func avoid(inView v: UIView!, scrollView: UIScrollView!, textView: UITextView, offsetY: CGFloat){
         
-        if !textView .isDescendantOfView(vc.view) {return}
-        vc.addChildViewController(self)
-        pvc = vc
+        //        if !textView .isDescendantOfView(vc.view) {return}
+        //        vc.addChildViewController(self)
+        pv = v
         self.textView = textView
         self.offsetY = offsetY
         self.scrollView = scrollView
         textView.delegate = self
-        if self.inputAccessoryView == nil {textView.inputAccessoryView = av;av.doneBtnActionClosure = {textView.endEditing(true)}}
+        if textView.inputAccessoryView == nil {textView.inputAccessoryView = av;av.doneBtnActionClosure = {textView.endEditing(true)}}
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
@@ -87,8 +87,8 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
             /**  别问为什么是7，，经验，，，，  */
             UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
             if self.scrollView != nil {self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x, scrollEatContenth)}
-            self.pvc.view.transform = CGAffineTransformMakeTranslation(0, transfromH)
-        })
+            self.pv.transform = CGAffineTransformMakeTranslation(0, transfromH)
+            })
     }
     
     /**  开始编辑  */
@@ -98,8 +98,8 @@ extension TextViewKeyBoardVC: UITextViewDelegate{
             
             UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: 7)!)
             
-            self.pvc.view.transform = CGAffineTransformIdentity
+            self.pv.transform = CGAffineTransformIdentity
             
-        })
+            })
     }
 }
